@@ -9,5 +9,7 @@ Open terminal and run main.py
 
 ## Instructions
 Add full directory paths to directories.py and set rm to True if root directory needs to be deleted as well.
+For scheduling cleaning, set scheduled to True in scheduled.py and add additional configuration fields in directories.py 
+(see template entry).
 
 Run cleaner.

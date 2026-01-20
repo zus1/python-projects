@@ -1,0 +1,2 @@
+MINUTES = 'minutes'
+HOURS = 'hours'
