@@ -55,9 +55,6 @@ class Generator:
     def generate(self, length: int|None = None):
         length = length if length else self.__default_length
 
-        # if not self.__upper_case_required and not self.__numbers_required and not self.__symbols_required:
-        #     return self.__generate_random_password(length=length)
-
         password = ''
         if self.__upper_case_required:
             length = length - 1
