@@ -1,31 +1,20 @@
-import csv
-import os
-import mimetypes
+import dotenv
 from database import Database
+from sources import Source
 
 def main():
-    file_path = './file/import.csv'
+    dotenv.load_dotenv()
 
-    if not os.path.exists(file_path):
-        print('Import file not found')
+    try:
+        csv_lines = Source().read_from_source()
+    except Exception as e:
+        print(f'Error reading csv file. Error: {e}')
+
         return
 
-    mime = mimetypes.guess_file_type(path=file_path)[0]
-    if not mime in [
-        'text/csv',
-        'text/plain',
-        'application/vnd.ms-excel',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-    ]:
-        print('Import file type not supported')
-        return
-
-    with open(file_path, 'r+') as csv_file:
-        csv_lines = list(csv.reader(csv_file))
-
-        print('Importing, please wait...\n')
-        Database().import_csv(csv_lines)
-        print('Successfully imported\n')
+    print('Importing, please wait...\n')
+    Database().import_csv(csv_lines)
+    print('Successfully imported\n')
 
 
 if __name__ == '__main__':
