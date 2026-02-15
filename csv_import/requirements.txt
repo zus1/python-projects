@@ -3,3 +3,4 @@ mysql-connector-python==9.5.0
 psycopg2==2.9.11
 boto3==1.42.49
 python-magic==0.4.27
+pydrive4==0.0.3

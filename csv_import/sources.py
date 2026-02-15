@@ -1,9 +1,11 @@
 import os
 import csv
+import sys
+
 import magic
 
 from config import Config
-from clients import Aws
+from clients import Aws, Drive
 
 class Source:
     def __init__(self):
@@ -12,9 +14,9 @@ class Source:
     def read_from_source(self)->list[tuple]:
         return getattr(self, f'{self.__source}')()
 
-    def local(self)->list[tuple]:
+    def local(self, path: str|None = None)->list[tuple]:
         print('Importing from local...')
-        file_path = 'file/example.csv'
+        file_path = path if path else 'file/import.csv'
 
         if not os.path.exists(file_path):
             raise FileNotFoundError('Import file not found')
@@ -34,6 +36,21 @@ class Source:
         Source.__validate_source_file_type(content, content_type='buffer')
 
         return list(csv.reader(content.splitlines()))
+
+    def drive(self):
+        print('Importing from Google Drive...')
+
+        file_id = Config.get_drive_file_id()
+        if not file_id:
+            raise ValueError('Import file id not provided')
+
+        path = Drive().get(file_id=file_id)
+
+        csv_dict = self.local(path=path)
+
+        os.remove(path) if os.path.exists(path) else None
+
+        return csv_dict
 
     @staticmethod
     def __validate_source_file_type(content, content_type='path'):

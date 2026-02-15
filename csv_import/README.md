@@ -36,6 +36,7 @@ Source of import file can be set in config module (get_csv_source)
 Supported sources:
 1. local
 2. aws
+3. drive (for Google drive)
 
 To use AWS please set all credentials in .env file
 ```dotenv
@@ -45,6 +46,14 @@ AWS_REGION=eu-north-1
 AWS_S3_BUCKET=import-files-bucket
 ```
 And set filename in config module (get_s3_filename)
+
+To use Google Drive
+1. Create service account and add key file to .google directory
+2. Edit path to the file in .env
+```dotenv
+GOOGLE_SERVICE_ACCOUNT='./.google/your-service-account-key-file.json'
+```
+And set file_id in config module (get_drive_file_id)
 
 
 ## Instructions
