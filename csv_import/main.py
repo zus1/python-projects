@@ -9,7 +9,7 @@ def main():
         csv_lines = Source().read_from_source()
     except Exception as e:
         print(f'Error reading csv file. Error: {e}')
-        raise e
+
         return
 
     print('Importing, please wait...\n')
